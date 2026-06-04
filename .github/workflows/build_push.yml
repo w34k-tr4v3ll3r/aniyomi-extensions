@@ -13,6 +13,9 @@ jobs:
       CI_CHUNK_NUM: 0
       GITHUB_ACTOR: ${{ github.actor }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+      ALIAS: ${{ secrets.ALIAS }}
+      KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -22,6 +25,17 @@ jobs:
         with:
           java-version: 17
           distribution: temurin
+
+      - name: Generate debug keystore
+        run: |
+          keytool -genkeypair -v \
+            -keystore signingkey.jks \
+            -alias androiddebugkey \
+            -keyalg RSA -keysize 2048 \
+            -validity 10000 \
+            -storepass android \
+            -keypass android \
+            -dname "CN=Debug, OU=Debug, O=Debug, L=Debug, S=Debug, C=US"
 
       - name: Grant execute permission
         run: chmod +x gradlew
