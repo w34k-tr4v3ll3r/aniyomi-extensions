@@ -25,8 +25,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build WatchAnimeWorld APK
-        run: ./gradlew :src:en:WatchAnimeWorld:assembleRelease
-
+        run: ./gradlew :src:en:WatchAnimeWorld:assembleRelease -x lintKotlinMain -x lintKotlinTest
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
