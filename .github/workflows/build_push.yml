@@ -11,6 +11,8 @@ jobs:
     env:
       CI_CHUNK_SIZE: 65
       CI_CHUNK_NUM: 0
+      GITHUB_ACTOR: ${{ github.actor }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,6 +28,7 @@ jobs:
 
       - name: Build WatchAnimeWorld APK
         run: ./gradlew :src:en:WatchAnimeWorld:assembleRelease -x lintKotlinMain -x lintKotlinTest
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
