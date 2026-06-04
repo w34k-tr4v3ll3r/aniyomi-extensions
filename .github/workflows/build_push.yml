@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      CI_CHUNK_SIZE: 65
     steps:
       - name: Checkout
         uses: actions/checkout@v4
